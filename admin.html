@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin</title>
+</head>
+<body>
+
+<h2>Painel Administrativo</h2>
+
+<input id="nome" placeholder="Nome do produto"><br><br>
+<input id="valor" placeholder="Valor"><br><br>
+<textarea id="descricao" placeholder="Descrição"></textarea><br><br>
+<input id="link" placeholder="Link afiliado"><br><br>
+
+<button onclick="salvar()">Salvar Produto</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    /* MESMO CÓDIGO DO FIREBASE */
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.salvar = async function () {
+    await addDoc(collection(db, "produtos"), {
+      nome: nome.value,
+      valor: valor.value,
+      descricao: descricao.value,
+      link: link.value
+    });
+    alert("Produto salvo!");
+  }
+</script>
+
+</body>
+</html>
